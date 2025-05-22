@@ -1,14 +1,22 @@
 import os
+import json
+import base64
+import os
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from firebase_admin import credentials, firestore, initialize_app
 from agentt import agent, Runner
+from dotenv import load_dotenv
 
 
+load_dotenv()
+encoded_key = os.getenv("SERVICE_ACCOUNT_KEY_BASE64")
 
-# service_account_info = json.loads(os.getenv("FIREBASE_SERVICE_ACCOUNT"))
-encoded_key = os.environ.get("serviceAccountKey.json")
-cred = credentials.Certificate(encoded_key)
+# Decode and load JSON
+decoded_bytes = base64.b64decode(encoded_key)
+decoded_json = json.loads(decoded_bytes)
+
+cred = credentials.Certificate(decoded_json)
 initialize_app(cred)
 db = firestore.client()
 
@@ -23,13 +31,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
-
-
-# Health check endpoint
-@app.get("/healthz")
-def health_check():
-    return {"status": "ok"}
-
 
 
 
