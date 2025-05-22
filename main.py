@@ -6,7 +6,7 @@ from agentt import agent, Runner
 
 
 # service_account_info = json.loads(os.getenv("FIREBASE_SERVICE_ACCOUNT"))
-cred = credentials.Certificate("serviceAccountKey.json")
+cred = credentials.Certificate("/etc/secrets/serviceAccountKey.json")
 initialize_app(cred)
 db = firestore.client()
 
@@ -21,6 +21,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
+
+# Health check endpoint
+@app.get("/healthz")
+def health_check():
+    return {"status": "ok"}
+
+
+
 
 # chat endpoint
 @app.post("/chat")
