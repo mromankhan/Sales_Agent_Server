@@ -1,0 +1,12 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.115.12",
+    "firebase-admin>=6.8.0",
+    "openai-agents[litellm]>=0.0.15",
+    "uvicorn>=0.34.2",
+]
