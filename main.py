@@ -6,7 +6,7 @@ from agentt import agent, Runner
 
 
 # service_account_info = json.loads(os.getenv("FIREBASE_SERVICE_ACCOUNT"))
-cred = credentials.Certificate("/etc/secrets/serviceAccountKey.json")
+cred = credentials.Certificate("serviceAccountKey.json")
 initialize_app(cred)
 db = firestore.client()
 
