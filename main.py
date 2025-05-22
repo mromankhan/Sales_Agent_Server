@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from firebase_admin import credentials, firestore, initialize_app
@@ -6,7 +7,8 @@ from agentt import agent, Runner
 
 
 # service_account_info = json.loads(os.getenv("FIREBASE_SERVICE_ACCOUNT"))
-cred = credentials.Certificate("serviceAccountKey.json")
+encoded_key = os.environ.get("serviceAccountKey.json")
+cred = credentials.Certificate(encoded_key)
 initialize_app(cred)
 db = firestore.client()
 
