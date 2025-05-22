@@ -26,12 +26,16 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000/", "https://sales-agent-eta.vercel.app"],
+    allow_origins=["http://localhost:3000", "https://sales-agent-eta.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
 )
 
+
+@app.get("/")
+def greet():
+    return {"message": "Welcome to sales agent backend!"}
 
 
 # chat endpoint
